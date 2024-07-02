@@ -1,7 +1,11 @@
+import {FoodCard} from "./pageComponents/FoodCard.tsx";
+
 export const HomePage = () => {
     return (
         <>
-        <h1>Home</h1>
+            <div className="m-5">
+                <FoodCard/>
+            </div>
         </>
     );
 };
