@@ -19,6 +19,9 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    location:{
+      type: String,
+    },
     avatar: {
         type: String,
         require: true,
