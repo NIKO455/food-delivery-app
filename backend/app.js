@@ -7,6 +7,7 @@ const mongoDB = require('./config/connection')
 // mongodb connection
 mongoDB()
 
+
 app.get('/', (req, res)=>{
     res.send("Hello, world!");
 })
