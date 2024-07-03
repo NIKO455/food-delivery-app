@@ -9,6 +9,7 @@ import {
 } from "@headlessui/react";
 import {Bars3Icon, BellIcon, XMarkIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
+import {Button} from "../../components/Button.tsx";
 
 const auth = false;
 const navigation = [
@@ -41,7 +42,8 @@ export default function Header() {
                                     )}
                                 </DisclosureButton>
                             </div>
-                            <div className="flex flex-1 items-center gap-10 justify-center sm:items-stretch sm:justify-start">
+                            <div
+                                className="flex flex-1 items-center gap-10 justify-center sm:items-stretch sm:justify-start">
                                 <div className="flex flex-shrink-0 items-center">
                                     <img
                                         className="h-12 absolute w-auto"
@@ -152,7 +154,9 @@ export default function Header() {
 
                                     </div>
                                     :
-                                    <Link to={'login'}>Login</Link>
+                                    <Link to={'login'}>
+                                        <Button content={'Login'}/>
+                                    </Link>
                             }
                         </div>
                     </div>

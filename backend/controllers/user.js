@@ -4,9 +4,9 @@ const {query, validationResult} = require('express-validator');
 
 
 async function createUserHandler(req, res) {
-    const {name, email, password, confirmPassword, avatar} = req.body;
+    const {name, email, password, confirmPassword} = req.body;
     try {
-        if (!name || !email || !password || !confirmPassword || !avatar) {
+        if (!name || !email || !password || !confirmPassword) {
             return res.status(400).json({status: 400, message: "Some fields are missing!"})
         }
 
@@ -26,7 +26,7 @@ async function createUserHandler(req, res) {
             username,
             email,
             password,
-            avatar,
+            avatar: 'image',
         })
         return res.status(201).json({status: 201, message: "User created successfully!"})
     } catch (e) {
