@@ -1,7 +1,9 @@
 const {Router} = require('express');
 const router = Router()
 const {body, validationResult} = require('express-validator')
-const {createUserHandler} = require('../controllers/user')
+const {createUserHandler, loginUserHandler} = require('../controllers/user')
+
+router.post('/loginUser', loginUserHandler);
 
 router.post('/createUser', [
     body('email', "Enter a valid email!").isEmail(),
