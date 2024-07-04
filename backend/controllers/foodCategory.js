@@ -1,4 +1,4 @@
-const FoodCategory = require('../models/foodCategroy')
+const FoodCategory = require('../models/foodCategory')
 
 async function createFoodCategoryHandler(req, res) {
     const {name} = req.body;
