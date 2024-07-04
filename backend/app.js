@@ -4,6 +4,7 @@ const app = express();
 const port = 5000
 const mongoDB = require('./config/connection')
 const userRoute = require('./routes/user')
+const foodCategoryRoute = require('./routes/foodCategory')
 
 // mongodb connection
 mongoDB()
@@ -20,7 +21,8 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
-app.use('/', userRoute)
+app.use('/user', userRoute)
+app.use('/foodCategory', foodCategoryRoute)
 
 app.listen(process.env.PORT, () => {
     console.log(`Running in PORT: ${process.env.PORT}`)
