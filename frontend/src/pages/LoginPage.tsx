@@ -28,7 +28,9 @@ export const LoginPage = () => {
             const result = await response.json();
             if (result.status) {
                 alert(result.message);
-                if (result.status === 201) {
+                if (result.status === 200) {
+                    console.log(result)
+                    localStorage.setItem('token', result.data.token)
                     setUserInfo({email: '', password: ''});
                 }
             }
