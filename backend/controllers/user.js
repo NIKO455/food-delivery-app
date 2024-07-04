@@ -46,6 +46,12 @@ async function createUserHandler(req, res) {
             return res.status(400).json({status: 400, message: result.array()[0].msg})
         }
 
+        let user = User.findOne({email});
+
+        if(user){
+            return res.status(400).json({status: 400, message: "User already exists with this email!"})
+        }
+
         if (password !== confirmPassword) {
             return res.status(400).json({status: 400, message: "Something is wrong with password!"})
         }
