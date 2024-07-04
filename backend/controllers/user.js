@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const {generateUsername} = require("unique-username-generator");
 const {query, validationResult} = require('express-validator');
+const bcrypt = require('bcrypt')
 
 async function loginUserHandler(req, res) {
     const {email, password} = req.body;
@@ -32,6 +33,7 @@ async function createUserHandler(req, res) {
             return res.status(400).json({status: 400, message: "Some fields are missing!"})
         }
 
+
         const result = validationResult(req);
         if (!result.isEmpty()) {
             return res.status(400).json({status: 400, message: result.array()[0].msg})
@@ -42,12 +44,14 @@ async function createUserHandler(req, res) {
         }
 
         const username = generateUsername("-");
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         await User.create({
             name,
             username,
             email,
-            password,
+            password: hashedPassword,
             avatar: 'image',
         })
         return res.status(201).json({status: 201, message: "User created successfully!"})
