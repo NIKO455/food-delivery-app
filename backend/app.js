@@ -22,10 +22,16 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
+// routes
+app.get('/',(req, res)=>{
+    res.send("Hello 👋, this is working fine");
+})
+
 app.use('/user', userRoute)
 app.use('/foodCategory', foodCategoryRoute)
 app.use('/foodItem', foodItemRoute)
 
+// server
 app.listen(process.env.PORT, () => {
     console.log(`Running in PORT: ${process.env.PORT}`)
 })
