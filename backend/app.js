@@ -23,10 +23,9 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
 // routes
-app.get('/',(req, res)=>{
+app.get('/', (req, res) => {
     res.send("Hello 👋, this is working fine");
 })
-
 app.use('/user', userRoute)
 app.use('/foodCategory', foodCategoryRoute)
 app.use('/foodItem', foodItemRoute)

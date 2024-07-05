@@ -1,4 +1,15 @@
 const FoodCategory = require('../models/foodCategory')
+const FoodItem = require("../models/foodItem");
+
+async function getAllFoodCategoryHandler(req, res) {
+    try {
+        let categories = await FoodCategory.find({});
+        return res.status(200).json({status: 200, message: "Fetched food items successfully!", data: categories});
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({status: 500, message: "Internal server error while creating food item."});
+    }
+}
 
 async function createFoodCategoryHandler(req, res) {
     const {name} = req.body;
@@ -18,4 +29,5 @@ async function createFoodCategoryHandler(req, res) {
     }
 }
 
-module.exports = {createFoodCategoryHandler}
+
+module.exports = {createFoodCategoryHandler, getAllFoodCategoryHandler}
