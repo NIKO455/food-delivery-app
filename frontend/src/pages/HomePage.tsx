@@ -1,8 +1,35 @@
-import {FoodCard} from "./pageComponents/FoodCard.tsx";
+import FoodCard from "./pageComponents/FoodCard.tsx";
 import Carousel from "./pageComponents/Carousel.tsx";
 import {ButtonIcon} from "../components/ButtonIcon.tsx";
+import {FaSearch} from "react-icons/fa";
+import {useEffect, useState} from "react";
 
 export const HomePage = () => {
+    const [foodCategories, setFoodCategories] = useState([]);
+    const [foodItems, setFoodItems] = useState([]);
+
+    useEffect(() => {
+        const fetchCategory = async () => {
+            await fetch('http://localhost:5000/foodCategory/all')
+                .then((res) => {
+                    return res.json()
+                }).then((res) => {
+                    setFoodCategories(res.data);
+                })
+        }
+        const fetchItem = async () => {
+            await fetch('http://localhost:5000/foodItem/all')
+                .then((res) => {
+                    return res.json()
+                }).then((res) => {
+                    setFoodItems(res.data);
+                })
+        }
+
+        fetchCategory();
+        fetchItem();
+    }, [])
+
     return (
         <>
             <div>
@@ -37,23 +64,35 @@ export const HomePage = () => {
                                     </button>
                                 </div>
                                 <ButtonIcon content={"Search"}
-                                            svgIcon={
-                                                <svg className="w-4 h-4 me-2" aria-hidden="true"
-                                                     xmlns="http://www.w3.org/2000/svg"
-                                                     fill="none" viewBox="0 0 20 20">
-                                                    <path stroke="currentColor" strokeLinecap="round"
-                                                          strokeLinejoin="round"
-                                                          strokeWidth="2"
-                                                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                                </svg>
-                                            }/>
+                                            svgIcon={<FaSearch/>}/>
                             </form>
 
                         </div>
                     </div>
                 </div>
                 <div className="m-5">
-                    <FoodCard/>
+                    {
+                        foodCategories &&
+                        foodCategories.map((foodCat) => (
+                            <div key={foodCat._id}>
+                                <h1 className={'text-2xl capitalize mb-2 font-bold'}>{foodCat.name}</h1>
+                                <hr className={'mb-3'}/>
+                                <div className={'flex gap-3'}>
+                                    {
+                                        foodItems.map((foodItem) => (
+                                            <div className={'flex gap-3'} key={foodItem._id}>
+                                                {foodItem && foodItem.categoryId.name === foodCat.name ?
+                                                    <FoodCard key={foodItem._id} foodName={foodItem.name}
+                                                              foodImage={foodItem.image}
+                                                    /> : ''
+                                                }
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </>
