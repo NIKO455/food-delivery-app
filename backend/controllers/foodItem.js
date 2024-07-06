@@ -2,12 +2,12 @@ const FoodItem = require('../models/foodItem');
 const FoodCategory = require('../models/foodCategory');
 
 async function createFoodItemHandler(req, res) {
-    const {categoryId, name, price, description, image} = req.body;
+    const {categoryId, name, options, description, image} = req.body;
     try {
-        if (!categoryId || !name || !image || !price) {
+        if (!categoryId || !name || !image || !options) {
             return res.status(400).json({
                 status: 400,
-                message: "Required fields are missing: categoryId, name, price, and image must be provided."
+                message: "Required fields are missing: categoryId, name, options, and image must be provided."
             });
         }
 
@@ -19,7 +19,7 @@ async function createFoodItemHandler(req, res) {
         await FoodItem.create({
             categoryId,
             name,
-            price,
+            options,
             description,
             image
         });
@@ -34,9 +34,8 @@ async function createFoodItemHandler(req, res) {
 async function getAllFoodItemHandler(req, res) {
     try {
         let users = await FoodItem.find({}).populate('categoryId');
-        return res.status(200).json({status: 200, message: "Fetched food items successfully!", data:users});
+        return res.status(200).json({status: 200, message: "Fetched food items successfully!", data: users});
     } catch (e) {
-        console.log(e)
         return res.status(500).json({status: 500, message: "Internal server error while creating food item."});
     }
 }

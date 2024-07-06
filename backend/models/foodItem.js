@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const {Schema, model} = require('mongoose');
 
 const foodItemSchema = new Schema({
     categoryId: {
@@ -10,9 +10,10 @@ const foodItemSchema = new Schema({
         type: String,
         required: true,
     },
-    price: {
-        type: Number,
-        required: true,
+    options: {
+        type: Map,
+        of: Number,
+        required: true
     },
     description: {
         type: String,
@@ -21,7 +22,7 @@ const foodItemSchema = new Schema({
         type: String,
         required: true,
     }
-}, { timestamps: true });
+}, {timestamps: true});
 
 const FoodItem = model('food_item', foodItemSchema);
 

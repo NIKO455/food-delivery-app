@@ -82,8 +82,8 @@ export const HomePage = () => {
                                         foodItems.map((foodItem) => (
                                             <div className={'flex gap-3'} key={foodItem._id}>
                                                 {foodItem && foodItem.categoryId.name === foodCat.name ?
-                                                    <FoodCard key={foodItem._id} foodName={foodItem.name}
-                                                              foodImage={foodItem.image}
+                                                    <FoodCard foodName={foodItem.name}
+                                                              foodImage={foodItem.image} foodOptions={foodItem.options}
                                                     /> : ''
                                                 }
                                             </div>
@@ -96,5 +96,6 @@ export const HomePage = () => {
                 </div>
             </div>
         </>
-    );
+    )
+        ;
 };
