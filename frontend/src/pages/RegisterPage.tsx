@@ -20,7 +20,7 @@ export const RegisterPage = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/createUser', {
+            const response = await fetch('http://localhost:5000/user/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

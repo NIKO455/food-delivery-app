@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import {Button} from "../components/Button.tsx";
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 interface UserInfo {
     email: string;
@@ -9,6 +10,7 @@ interface UserInfo {
 
 export const LoginPage = () => {
 
+    const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState<UserInfo>({email: '', password: ''});
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +20,7 @@ export const LoginPage = () => {
     const loginHandler = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/loginUser', {
+            const response = await fetch('http://localhost:5000/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,13 +31,12 @@ export const LoginPage = () => {
             if (result.status) {
                 alert(result.message);
                 if (result.status === 200) {
-                    console.log(result)
                     localStorage.setItem('token', result.data.token)
                     setUserInfo({email: '', password: ''});
+                    navigate('/')
                 }
             }
         } catch (error) {
-            console.error('Error submitting form:', error);
             alert('Failed to create user');
         }
     }
@@ -73,7 +74,7 @@ export const LoginPage = () => {
                                         <div className="flex items-center h-5">
                                             <input id="remember" aria-describedby="remember" type="checkbox"
                                                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                                                   required/>
+                                                   />
                                         </div>
                                         <div className="ml-3 text-sm">
                                             <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember

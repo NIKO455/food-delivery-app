@@ -7,11 +7,11 @@ import {
     MenuItem,
     MenuItems,
 } from "@headlessui/react";
-import {Bars3Icon, BellIcon, XMarkIcon} from "@heroicons/react/24/outline";
+import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
 import {Button} from "../../components/Button.tsx";
+import {BsCart4} from "react-icons/bs";
 
-const auth = false;
 const navigation = [
     {name: "Home", href: "/", current: true},
     {name: "About", href: "#", current: false},
@@ -53,39 +53,36 @@ export default function Header() {
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
                                     <div className="flex space-x-4">
-                                        <div>
-                                            {navigation.map((item) => {
-                                                return (
-                                                    <Link
-                                                        key={item.name}
-                                                        to={item.href}
-                                                        className={classNames(
-                                                            item.current ? "bg-gray-900 text-white" : "dark:text-gray-300 hover:bg-gray-700 hover:text-white",
-                                                            "rounded-md px-3 py-2 text-sm font-medium"
-                                                        )}
-                                                        aria-current={item.current ? "page" : undefined}
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                );
-                                            })}
-                                        </div>
-
+                                        {
+                                            localStorage.getItem('token') ?
+                                                <div>My Orders</div>
+                                                :
+                                                <div>
+                                                    {navigation.map((item) => {
+                                                        return (
+                                                            <Link
+                                                                key={item.name}
+                                                                to={item.href}
+                                                                className={classNames(
+                                                                    item.current ? "bg-gray-900 text-white" : "dark:text-gray-300 hover:bg-gray-700 hover:text-white",
+                                                                    "rounded-md px-3 py-2 text-sm font-medium"
+                                                                )}
+                                                                aria-current={item.current ? "page" : undefined}
+                                                            >
+                                                                {item.name}
+                                                            </Link>
+                                                        );
+                                                    })}
+                                                </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
                             {
-                                auth ?
+                                localStorage.getItem('token') ?
                                     <div
                                         className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                        <button
-                                            type="button"
-                                            className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                        >
-                                            <span className="absolute -inset-1.5"/>
-                                            <span className="sr-only">View notifications</span>
-                                            <BellIcon className="h-6 w-6" aria-hidden="true"/>
-                                        </button>
+                                        <BsCart4 className="h-6 w-6 mr-5"/>
 
                                         <Menu as="div" className="relative ml-3">
                                             <div>
