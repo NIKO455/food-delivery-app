@@ -3,8 +3,10 @@ import Carousel from "./pageComponents/Carousel.tsx";
 import {ButtonIcon} from "../components/ButtonIcon.tsx";
 import {FaSearch} from "react-icons/fa";
 import {useEffect, useState} from "react";
+import {createLogger} from "vite";
 
 export const HomePage = () => {
+    const [searchFoodItems, setSearchFoodItems] = useState([]);
     const [foodCategories, setFoodCategories] = useState([]);
     const [foodItems, setFoodItems] = useState([]);
 
@@ -49,7 +51,8 @@ export const HomePage = () => {
                                                   d="M11.15 5.6h.01m3.337 1.913h.01m-6.979 0h.01M5.541 11h.01M15 15h2.706a1.957 1.957 0 0 0 1.883-1.325A9 9 0 1 0 2.043 11.89 9.1 9.1 0 0 0 7.2 19.1a8.62 8.62 0 0 0 3.769.9A2.013 2.013 0 0 0 13 18v-.857A2.034 2.034 0 0 1 15 15Z"/>
                                         </svg>
                                     </div>
-                                    <input type="text" id="voice-search"
+                                    <input type="text" id="voice-search" value={searchFoodItems}
+                                           onChange={(e) => setSearchFoodItems(e.target.value)}
                                            className="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="Search Mockups, Logos, Design Templates..." required/>
                                     <button type="button" className="absolute inset-y-0 end-0 flex items-center pe-3">
@@ -79,13 +82,11 @@ export const HomePage = () => {
                                 <hr className={'mb-3'}/>
                                 <div className={'flex gap-3'}>
                                     {
-                                        foodItems.map((foodItem) => (
+                                        foodItems.filter((item) => item.categoryId._id === foodCat._id && item.name.toLowerCase().includes(searchFoodItems)).map((foodItem) => (
                                             <div className={'flex gap-3'} key={foodItem._id}>
-                                                {foodItem && foodItem.categoryId.name === foodCat.name ?
-                                                    <FoodCard foodName={foodItem.name}
-                                                              foodImage={foodItem.image} foodOptions={foodItem.options}
-                                                    /> : ''
-                                                }
+                                                <FoodCard foodName={foodItem.name}
+                                                          foodImage={foodItem.image} foodOptions={foodItem.options}
+                                                />
                                             </div>
                                         ))
                                     }
