@@ -3,7 +3,7 @@ import Carousel from "./pageComponents/Carousel.tsx";
 import {ButtonIcon} from "../components/ButtonIcon.tsx";
 import {FaSearch} from "react-icons/fa";
 import {useEffect, useState} from "react";
-import {createLogger} from "vite";
+
 
 export const HomePage = () => {
     const [searchFoodItems, setSearchFoodItems] = useState([]);
@@ -84,8 +84,8 @@ export const HomePage = () => {
                                     {
                                         foodItems.filter((item) => item.categoryId._id === foodCat._id && item.name.toLowerCase().includes(searchFoodItems)).map((foodItem) => (
                                             <div className={'flex gap-3'} key={foodItem._id}>
-                                                <FoodCard foodName={foodItem.name}
-                                                          foodImage={foodItem.image} foodOptions={foodItem.options}
+                                                <FoodCard
+                                                          foodInfo={foodItem}
                                                 />
                                             </div>
                                         ))

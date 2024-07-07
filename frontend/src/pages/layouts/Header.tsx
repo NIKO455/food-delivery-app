@@ -11,6 +11,8 @@ import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 import {Link, useNavigate} from "react-router-dom";
 import {Button} from "../../components/Button.tsx";
 import {BsCart4} from "react-icons/bs";
+import {useContext, useState} from "react";
+import {CartContext} from "../../contexts/CartContext.tsx";
 
 const navigation = [
     {name: "Home", href: "/", current: true},
@@ -26,6 +28,8 @@ function classNames(...classes: string[]) {
 
 export default function Header() {
     const navigate = useNavigate();
+    const cartState = useContext(CartContext);
+    const countItem = cartState.cart.length
     const logoutHandler = () => {
         localStorage.removeItem('token')
         navigate('/login')
@@ -89,7 +93,15 @@ export default function Header() {
                                 localStorage.getItem('token') ?
                                     <div
                                         className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                        <BsCart4 className="h-6 w-6 mr-5"/>
+                                        <button type="button"
+                                                className="relative inline-flex items-center mr-4 p-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <BsCart4 className="h-6 w-6"/>
+
+                                            <span className="sr-only">Notifications</span>
+                                            <div
+                                                className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{countItem}
+                                            </div>
+                                        </button>
 
                                         <Menu as="div" className="relative ml-3">
                                             <div>
