@@ -8,7 +8,7 @@ import {
     MenuItems,
 } from "@headlessui/react";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Button} from "../../components/Button.tsx";
 import {BsCart4} from "react-icons/bs";
 
@@ -19,11 +19,18 @@ const navigation = [
 
 ];
 
+
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
 }
 
 export default function Header() {
+    const navigate = useNavigate();
+    const logoutHandler = () => {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
+
     return (
         <Disclosure as="nav" className="dark:bg-gray-800 bg-gray-200">
             {({open}) => (
@@ -134,12 +141,12 @@ export default function Header() {
                                                 <MenuItem>
                                                     {({focus}) => (
                                                         <a
-                                                            href="#"
+                                                            onClick={logoutHandler}
                                                             className={classNames(
                                                                 focus
                                                                     ? "bg-gray-100 dark:hover:bg-gray-700 rounded"
                                                                     : "",
-                                                                "block px-4 py-2 text-sm text-gray-700 dark:text-gray-400"
+                                                                "block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 cursor-pointer"
                                                             )}
                                                         >
                                                             Sign out
