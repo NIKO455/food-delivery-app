@@ -52,6 +52,7 @@ export const HomePage = () => {
                                         </svg>
                                     </div>
                                     <input type="text" id="voice-search" value={searchFoodItems}
+                                        // @ts-ignore
                                            onChange={(e) => setSearchFoodItems(e.target.value)}
                                            className="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="Search Mockups, Logos, Design Templates..." required/>
@@ -77,12 +78,16 @@ export const HomePage = () => {
                     {
                         foodCategories &&
                         foodCategories.map((foodCat) => (
+                            // @ts-ignore
                             <div key={foodCat._id}>
+                                {/*@ts-ignore*/}
                                 <h1 className={'text-2xl capitalize mb-2 font-bold'}>{foodCat.name}</h1>
                                 <hr className={'mb-3'}/>
                                 <div className={'flex gap-3'}>
                                     {
+                                        // @ts-ignore
                                         foodItems.filter((item) => item.categoryId._id === foodCat._id && item.name.toLowerCase().includes(searchFoodItems)).map((foodItem) => (
+                                            // @ts-ignore
                                             <div className={'flex gap-3'} key={foodItem._id}>
                                                 <FoodCard
                                                           foodInfo={foodItem}
