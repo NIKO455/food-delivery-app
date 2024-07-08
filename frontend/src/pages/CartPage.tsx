@@ -5,13 +5,16 @@ import {JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useCon
 export const CartPage = () => {
 
     const cartState = useContext(CartContext);
-    // @ts-ignore
     const countItem = cartState.cart;
     const originalP = countItem.reduce((total: number, value: { price: number; }) => {
         return total + value.price;
     }, 0);
     const tax = countItem.length > 0 ? 12 : 0;
-    const [totalPrice, setTotalPrice] = useState(originalP + tax)
+    const totalPrice = originalP + tax
+
+    const removeItem = (id: Key | null | undefined) => {
+        cartState.discardItem(id)
+    }
 
 
     return (
@@ -62,6 +65,7 @@ export const CartPage = () => {
 
                                                             <div className="flex items-center gap-4">
                                                                 <button type="button"
+                                                                        onClick={() => removeItem(item.id)}
                                                                         className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
                                                                     <svg className="me-1.5 h-5 w-5" aria-hidden="true"
                                                                          xmlns="http://www.w3.org/2000/svg" width="24"
