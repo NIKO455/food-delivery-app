@@ -13,8 +13,8 @@ export const CartPage = () => {
     const tax = countItem.length > 0 ? 12 : 0;
     const totalPrice = originalP + tax
 
-    const removeItem = (id: Key | null | undefined) => {
-        cartState.discardItem(id)
+    const removeItem = (item) => {
+        cartState.discardItem(item)
     }
 
 
@@ -65,7 +65,7 @@ export const CartPage = () => {
 
                                                             <div className="flex items-center gap-4">
                                                                 <button type="button"
-                                                                        onClick={() => removeItem(item.id)}
+                                                                        onClick={() => removeItem(item)}
                                                                         className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
                                                                     <svg className="me-1.5 h-5 w-5" aria-hidden="true"
                                                                          xmlns="http://www.w3.org/2000/svg" width="24"

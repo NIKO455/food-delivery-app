@@ -9,10 +9,14 @@ export const CartProvider = ({children}) => {
         setCart((prevState) => [...prevState, item])
     }
 
-    const discardItem = (itemId: number) => {
-        const updatedCart = cart.filter((item) => item.id !== itemId);
+    const discardItem = (removeItem) => {
+        const updatedCart = cart.filter((item) => (
+            item.id !== removeItem.id || item.size !== removeItem.size
+        ));
+
         setCart(updatedCart);
     }
+
 
     return <CartContext.Provider value={{cart, setCart, addItem, discardItem}}>{children}</CartContext.Provider>
 
