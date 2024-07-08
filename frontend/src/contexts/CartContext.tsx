@@ -1,4 +1,4 @@
-import {createContext, SetStateAction, useState} from "react";
+import {createContext, SetStateAction, useEffect, useState} from "react";
 
 export const CartContext = createContext(null);
 
@@ -13,7 +13,6 @@ export const CartProvider = ({children}) => {
         const updatedCart = cart.filter((item) => (
             item.id !== removeItem.id || item.size !== removeItem.size
         ));
-
         setCart(updatedCart);
     }
 

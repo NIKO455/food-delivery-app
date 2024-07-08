@@ -6,6 +6,7 @@ const mongoDB = require('./config/connection')
 const userRoute = require('./routes/user')
 const foodCategoryRoute = require('./routes/foodCategory')
 const foodItemRoute = require('./routes/foodItem')
+const orderRoute = require('./routes/order')
 
 // mongodb connection
 mongoDB()
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
     res.send("Hello 👋, this is working fine");
 })
 app.use('/user', userRoute)
+app.use('/order', orderRoute)
 app.use('/foodCategory', foodCategoryRoute)
 app.use('/foodItem', foodItemRoute)
 

@@ -1,6 +1,6 @@
 import {Button} from "../components/Button.tsx";
 import {CartContext} from '../contexts/CartContext.tsx'
-import {JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useContext, useState} from "react";
+import {JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 export const CartPage = () => {
@@ -15,6 +15,28 @@ export const CartPage = () => {
 
     const removeItem = (item) => {
         cartState.discardItem(item)
+    }
+
+    const checkOutHandler = async () => {
+        try {
+            const userEmail = localStorage.getItem('userEmail')
+            await fetch('http://localhost:5000/order/create', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: userEmail,
+                    orderData: countItem
+                })
+            }).then((data) => {
+                console.log(data)
+            }).catch((e) => {
+                console.log(e)
+            })
+        } catch (e) {
+            console.log(e)
+        }
     }
 
 
@@ -120,7 +142,9 @@ export const CartPage = () => {
                                 </div>
                                 {
                                     localStorage.getItem('token') ?
-                                        <Button content={'Proceed to Checkout'} className={'w-full'}/>
+                                        <span onClick={checkOutHandler}>
+                                        <Button content={'Proceed to Checkout'} className={'mt-5 w-full'}/>
+                                        </span>
                                         :
                                         <Link to={'/login'}>
                                             <Button content={'Login to Order'} className={'w-full mt-5'}/>

@@ -54,6 +54,7 @@ const FoodCard: React.FC<FoodCardProps> = ({foodInfo}) => {
                 }
                 return item;
             });
+
             cartState.setCart(updatedCart);
         } else {
             const foodInformation = {

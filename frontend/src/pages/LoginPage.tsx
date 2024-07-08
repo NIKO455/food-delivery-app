@@ -31,6 +31,7 @@ export const LoginPage = () => {
             if (result.status) {
                 if (result.status === 200) {
                     localStorage.setItem('token', result.data.token)
+                    localStorage.setItem('userEmail', userInfo.email);
                     setUserInfo({email: '', password: ''});
                     navigate('/')
                 }

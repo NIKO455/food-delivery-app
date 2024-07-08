@@ -29,7 +29,6 @@ function classNames(...classes: string[]) {
 export default function Header() {
     const navigate = useNavigate();
     const cartState = useContext(CartContext);
-    // @ts-ignore
     const countItem = cartState.cart.length
     const logoutHandler = () => {
         localStorage.removeItem('token')
@@ -69,7 +68,7 @@ export default function Header() {
                                     <div className="flex space-x-4">
                                         {
                                             localStorage.getItem('token') ?
-                                                <Link to={'/'}>My Orders</Link>
+                                                <Link to={'/my-order'}>My Orders</Link>
                                                 :
                                                 <div>
                                                     {navigation.map((item) => {

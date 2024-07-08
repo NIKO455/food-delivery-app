@@ -4,6 +4,7 @@ import {MainLayout} from "./pages/layouts/MainLayout.tsx";
 import {LoginPage} from "./pages/LoginPage.tsx";
 import {RegisterPage} from "./pages/RegisterPage.tsx";
 import {CartPage} from "./pages/CartPage.tsx";
+import {MyOrder} from "./pages/MyOrder.tsx";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
             {
                 path: "cart",
                 element: <CartPage/>
+            },
+            {
+                path: "my-order",
+                element: <MyOrder/>
             },
         ],
     },
