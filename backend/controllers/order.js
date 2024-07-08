@@ -49,9 +49,6 @@ const getAllOrderHandler = async (req, res) => {
             allOrderData = allOrderData.concat(order.orderData);
         });
 
-
-        // console.log(allOrderData)
-
         return res.status(200).json({
             status: 200,
             message: "Orders fetched successfully",
