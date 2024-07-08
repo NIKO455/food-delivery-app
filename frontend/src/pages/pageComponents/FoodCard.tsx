@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { CartContext } from "../../contexts/CartContext";
+import React, {useEffect, useRef, useState} from "react";
+import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {CartContext} from "../../contexts/CartContext";
 import {Button} from "../../components/Button.tsx";
 
 interface FoodCardProps {
@@ -10,12 +10,12 @@ interface FoodCardProps {
         name: string;
         image: string;
         options: {
-            [key: string]: string; // Assuming options are strings representing prices
+            [key: string]: string;
         };
     };
 }
 
-const FoodCard: React.FC<FoodCardProps> = ({ foodInfo }) => {
+const FoodCard: React.FC<FoodCardProps> = ({foodInfo}) => {
     const cartState = useContext(CartContext);
     const priceRef = useRef<HTMLSelectElement>(null);
     const [qty, setQty] = useState<number>(1);
@@ -26,7 +26,7 @@ const FoodCard: React.FC<FoodCardProps> = ({ foodInfo }) => {
         if (priceRef.current) {
             setSize(priceRef.current.value);
         }
-    }, []); // useEffect dependency array added
+    }, []);
 
     useEffect(() => {
         let selectedPrice = foodInfo.options[size];
@@ -36,23 +36,47 @@ const FoodCard: React.FC<FoodCardProps> = ({ foodInfo }) => {
     }, [qty, size]);
 
     const addToCart = () => {
-        const foodInformation = {
-            id: foodInfo._id,
-            name: foodInfo.name,
-            price: finalPrice,
-            image: foodInfo.image,
-            qty,
-            size,
-        };
-        cartState.addItem(foodInformation);
+
+        const existingItemIndex = cartState.cart.findIndex(item =>
+            item.id === foodInfo._id &&
+            item.name === foodInfo.name &&
+            item.size === size
+        );
+
+        if (existingItemIndex !== -1) {
+            const updatedCart = cartState.cart.map((item, index) => {
+                if (index === existingItemIndex) {
+                    return {
+                        ...item,
+                        qty: item.qty + qty,
+                        price: item.price + finalPrice
+                    };
+                }
+                return item;
+            });
+            cartState.setCart(updatedCart);
+        } else {
+            const foodInformation = {
+                id: foodInfo._id,
+                name: foodInfo.name,
+                price: finalPrice,
+                image: foodInfo.image,
+                qty,
+                size,
+            };
+            cartState.addItem(foodInformation);
+        }
+
+
     };
 
     const priceOptions = Object.keys(foodInfo.options);
 
     return (
-        <div className="w-full max-w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div
+            className="w-full max-w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
-                <img className="p-3" style={{ borderRadius: "20px" }} src={foodInfo.image} alt="product image" />
+                <img className="p-3" style={{borderRadius: "20px"}} src={foodInfo.image} alt="product image"/>
             </a>
 
             <div className="px-2 pb-5">
