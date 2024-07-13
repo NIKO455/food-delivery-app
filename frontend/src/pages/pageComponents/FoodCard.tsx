@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {useContext} from "react";
 import {CartContext} from "../../contexts/CartContext";
 import {Button} from "../../components/Button.tsx";
+import {toast} from "react-toastify";
 
 interface FoodCardProps {
     foodInfo: {
@@ -67,6 +68,17 @@ const FoodCard: React.FC<FoodCardProps> = ({foodInfo}) => {
             };
             cartState.addItem(foodInformation);
         }
+
+        toast.success('Item added to cart!', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
 
 
     };

@@ -40,13 +40,12 @@ async function createUserHandler(req, res) {
             return res.status(400).json({status: 400, message: "Some fields are missing!"})
         }
 
-
         const result = validationResult(req);
         if (!result.isEmpty()) {
             return res.status(400).json({status: 400, message: result.array()[0].msg})
         }
 
-        let user = User.findOne({email});
+        let user = await User.findOne({email});
 
         if(user){
             return res.status(400).json({status: 400, message: "User already exists with this email!"})

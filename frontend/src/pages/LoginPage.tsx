@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import {Button} from "../components/Button.tsx";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 interface UserInfo {
     email: string;
@@ -30,14 +31,20 @@ export const LoginPage = () => {
             const result = await response.json();
             if (result.status) {
                 if (result.status === 200) {
+                    toast.success(result.message)
                     localStorage.setItem('token', result.data.token)
                     localStorage.setItem('userEmail', userInfo.email);
                     setUserInfo({email: '', password: ''});
                     navigate('/')
+                    return;
+                }else{
+                    toast.error(result.message)
+                    return;
                 }
             }
+            toast.error("Some internal error has occurred!")
         } catch (error) {
-            alert('Failed to create user');
+            console.log(error)
         }
     }
 
@@ -74,7 +81,7 @@ export const LoginPage = () => {
                                         <div className="flex items-center h-5">
                                             <input id="remember" aria-describedby="remember" type="checkbox"
                                                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                                                   />
+                                            />
                                         </div>
                                         <div className="ml-3 text-sm">
                                             <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember

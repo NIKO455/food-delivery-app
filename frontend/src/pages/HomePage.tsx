@@ -32,7 +32,6 @@ export const HomePage = () => {
         fetchItem();
     }, [])
 
-
     return (
         <>
             <div>
@@ -79,16 +78,12 @@ export const HomePage = () => {
                     {
                         foodCategories &&
                         foodCategories.map((foodCat) => (
-                            // @ts-ignore
                             <div key={foodCat._id}>
-                                {/*@ts-ignore*/}
                                 <h1 className={'text-2xl capitalize mb-2 font-bold'}>{foodCat.name}</h1>
                                 <hr className={'mb-3'}/>
                                 <div className={'flex gap-3'}>
                                     {
-                                        // @ts-ignore
-                                        foodItems.filter((item) => item.categoryId._id === foodCat._id && item.name.toLowerCase().includes(searchFoodItems)).map((foodItem) => (
-                                            // @ts-ignore
+                                        foodItems.filter((item) => item.categoryId._id === foodCat._id && item.name.toLowerCase().includes(searchFoodItems.toString().toLowerCase())).map((foodItem) => (
                                             <div className={'flex gap-3'} key={foodItem._id}>
                                                 <FoodCard
                                                           foodInfo={foodItem}

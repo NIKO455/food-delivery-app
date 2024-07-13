@@ -13,6 +13,7 @@ import {Button} from "../../components/Button.tsx";
 import {BsCart4} from "react-icons/bs";
 import {useContext} from "react";
 import {CartContext} from "../../contexts/CartContext.tsx";
+import {toast} from "react-toastify";
 
 const navigation = [
     {name: "Home", href: "/", current: true},
@@ -33,6 +34,7 @@ export default function Header() {
     const logoutHandler = () => {
         localStorage.removeItem('token')
         navigate('/login')
+        toast.success('User logout successfully!');
     }
 
     return (

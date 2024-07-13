@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import {Button} from "../components/Button.tsx";
 import React, {useState} from "react";
+import {toast} from "react-toastify";
 
 interface UserInfo {
     name: string;
@@ -29,14 +30,19 @@ export const RegisterPage = () => {
             });
             const result = await response.json();
             if (result.status) {
-                alert(result.message);
                 if (result.status === 201) {
                     setUserInfo({name: '', email: '', password: '', confirmPassword: ''});
+                    toast.success(result.message)
+                    return;
+                }else{
+                    toast.error(result.message)
+                    return;
                 }
             }
+            toast.error("Some internal error has occurred!")
+            return;
         } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('Failed to create user');
+            console.log(error)
         }
     };
 
