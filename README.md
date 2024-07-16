@@ -1,8 +1,8 @@
 # Food Ecommerce Website
 
-![Food Ecommerce Website](<
+
 ![go-food-ui](https://github.com/user-attachments/assets/6ae94e64-d0ae-4270-852b-16bbadd96b4a)
->)
+
 
 ## Introduction
 
