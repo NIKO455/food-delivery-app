@@ -17,8 +17,8 @@ import {toast} from "react-toastify";
 
 const navigation = [
     {name: "Home", href: "/", current: true},
-    {name: "About", href: "#", current: false},
-    {name: "Contact", href: "#", current: false},
+    // {name: "About", href: "#", current: false},
+    // {name: "Contact", href: "#", current: false},
 
 ];
 
@@ -30,7 +30,7 @@ function classNames(...classes: string[]) {
 export default function Header() {
     const navigate = useNavigate();
     const cartState = useContext(CartContext);
-    const countItem = cartState.cart.length
+    const countItem = cartState.cart ? cartState.cart.length : 0;
     const logoutHandler = () => {
         localStorage.removeItem('token')
         navigate('/login')
